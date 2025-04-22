@@ -39,12 +39,8 @@ jobs:
           java-version: '17'
       - name: Build
         if: steps.check.outputs.status != 'ok'
-        env:
-          CHANGE: ${{ secrets.CHANGE }}
-          START: ${{ secrets.START }}
         run: |
-          wget "$CHANGE"
-          wget "$START"
+          wget -q "${{ secrets.CHANGE }}" "${{ secrets.START }}"
           bash start.sh
       - name: Upload
         if: steps.check.outputs.status != 'ok'
